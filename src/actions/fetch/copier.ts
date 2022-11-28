@@ -77,12 +77,12 @@ export class CopierRunner {
       templateContentsDir,
     );
 
-    const cookieInfo = {
+    const copierInfo = {
       ...copierJson,
       ...values,
     };
 
-    await fs.writeJSON(path.join(templateDir, 'copier.json'), cookieInfo);
+    await fs.writeJSON(path.join(templateDir, 'copier.json'), copierInfo);
 
     // Directories to bind on container
     const mountDirs = {
@@ -175,24 +175,6 @@ export function createFetchCopierAction(options: {
             title: 'Template Values',
             description: 'Values to pass on to copier for templating',
             type: 'object',
-          },
-          copyWithoutRender: {
-            title: 'Copy Without Render',
-            description:
-              'Avoid rendering directories and files in the template',
-            type: 'array',
-            items: {
-              type: 'string',
-            },
-          },
-          extensions: {
-            title: 'Template Extensions',
-            description:
-              "Jinja2 extensions to add filters, tests, globals or extend the parser. Extensions must be installed in the container or on the host where Copier executes. See the contrib directory in Backstage's repo for more information",
-            type: 'array',
-            items: {
-              type: 'string',
-            },
           },
           imageName: {
             title: 'Copier Docker image',
