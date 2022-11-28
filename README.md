@@ -19,26 +19,48 @@ Configure the action:
 ```typescript
 // packages/backend/src/plugins/scaffolder.ts
 
-const actions = [
-  createFetchCopierAction({
-    integrations,
-    reader: env.reader,
-    containerRunner,
-  }),
-  ...createBuiltInActions({
-    ...
-  })
-];
+import { CatalogClient } from '@backstage/catalog-client';
+import { createRouter } from '@backstage/plugin-scaffolder-backend';
+import { createFetchCopierAction } from '@backstage/plugin-scaffolder-backend-module-copier';
+import { createBuiltinActions } from '@backstage/plugin-scaffolder-backend';
+import { ScmIntegrations } from '@backstage/integration';
+import Docker from 'dockerode';
+import { DockerContainerRunner } from '@backstage/backend-common';
 
-return await createRouter({
-  containerRunner,
-  catalogClient,
-  actions,
-  logger: env.logger,
-  config: env.config,
-  database: env.database,
-  reader: env.reader,
-});
+
+import { Router } from 'express';
+import type { PluginEnvironment } from '../types';
+
+export default async function createPlugin(
+  env: PluginEnvironment,
+): Promise<Router> {
+  const catalogClient = new CatalogClient({
+    discoveryApi: env.discovery,
+  });
+  const integrations = ScmIntegrations.fromConfig(env.config);
+  const dockerClient = new Docker();
+  const containerRunner = new DockerContainerRunner({ dockerClient });
+
+  const builtInActions = createBuiltinActions({
+    integrations,
+    catalogClient,
+    config: env.config,
+    reader: env.reader,
+  });
+  const actions = [...builtInActions, createFetchCopierAction({reader: env.reader, containerRunner})];
+  return await createRouter({
+    containerRunner,
+    catalogClient,
+    actions,
+    logger: env.logger,
+    config: env.config,
+    database: env.database,
+    reader: env.reader,
+    identity: env.identity,
+    scheduler: env.scheduler,
+  });
+}
+
 ```
 
 After that you can use the action in your template:
