@@ -73,12 +73,12 @@ export class CopierRunner {
     const resultDir = path.join(workspacePath, 'result');
 
     // First lets grab the default copier.json file
-    const cookieCutterJson = await this.fetchTemplateCopier(
+    const copierJson = await this.fetchTemplateCopier(
       templateContentsDir,
     );
 
     const cookieInfo = {
-      ...cookieCutterJson,
+      ...copierJson,
       ...values,
     };
 
@@ -91,10 +91,10 @@ export class CopierRunner {
     };
 
     // the command-exists package returns `true` or throws an error
-    const cookieCutterInstalled = await commandExists('copier').catch(
+    const copierInstalled = await commandExists('copier').catch(
       () => false,
     );
-    if (cookieCutterInstalled) {
+    if (copierInstalled) {
       await executeShellCommand({
         command: 'copier',
         args: ['--no-input', '-o', intermediateDir, templateDir, '--verbose'],
