@@ -47,7 +47,7 @@ export default async function createPlugin(
     config: env.config,
     reader: env.reader,
   });
-  const actions = [...builtInActions, createFetchCopierAction({reader: env.reader, containerRunner})];
+  const actions = [...builtInActions, createFetchCopierAction({integrations, reader: env.reader, containerRunner})];
   return await createRouter({
     containerRunner,
     catalogClient,
@@ -60,6 +60,7 @@ export default async function createPlugin(
     scheduler: env.scheduler,
   });
 }
+
 
 ```
 
