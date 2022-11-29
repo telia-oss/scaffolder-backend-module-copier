@@ -103,7 +103,7 @@ export class CopierRunner {
       await this.containerRunner.runContainer({
         imageName: imageName ?? 'tobiasestefors/backstage-copier',
         command: 'copier',
-        args: ['/input', '/output'],
+        args: [...copierValues, '/input', '/output'],
         mountDirs,
         workingDir: '/input',
         // Set the home directory inside the container as something that applications can
