@@ -102,7 +102,7 @@ export class CopierRunner {
     } else {
       await this.containerRunner.runContainer({
         imageName: imageName ?? 'tobiasestefors/copier:7.0.1',
-        command: 'whoami',
+        command: 'copier',
         args: [...copierValues, '/input', '/output'],
         mountDirs,
         workingDir: '/input',
