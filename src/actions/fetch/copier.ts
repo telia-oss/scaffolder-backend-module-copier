@@ -101,13 +101,8 @@ export class CopierRunner {
       });
     } else {
       await this.containerRunner.runContainer({
-<<<<<<< HEAD
         imageName: imageName ?? 'tobiasestefors/copier:7.0.1',
         command: 'whoami',
-=======
-        imageName: imageName ?? 'tobiasestefors/backstage-copier',
-        command: 'copier',
->>>>>>> 48d62dfa7015e6a317daf6645953813eeead6215
         args: [...copierValues, '/input', '/output'],
         mountDirs,
         workingDir: '/input',
