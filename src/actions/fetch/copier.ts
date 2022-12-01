@@ -101,13 +101,11 @@ export class CopierRunner {
       });
     } else {
       await this.containerRunner.runContainer({
-        imageName: imageName ?? 'tobiasestefors/backstage-copier',
-        command: 'copier',
-        args: ['/input', '/output'],
+        imageName: imageName ?? 'tobiasestefors/copier:7.0.1',
+        command: 'whoami',
+        args: [...copierValues, '/input', '/output'],
         mountDirs,
         workingDir: '/input',
-        // Set the home directory inside the container as something that applications can
-        // write to, otherwise they will just fail trying to write to /
         envVars: { HOME: '/tmp' },
         logStream,
       });
