@@ -83,36 +83,28 @@ export class CopierRunner {
       () => false,
     );
     let copierValues = []
-    
+    console.log(values) 
+    let destValues = values['destination']
     delete values['destination']
-    for (let key in values) {
-      let value = values[key];
+    console.log(destValues)
+    console.log(values)
+    let allValues  = Object.assign({}, destValues, values);
+    console.log(allValues)
+    for (let key in allValues) {
+      let value = allValues[key];
       copierValues.push("--data")
       copierValues.push(key + "=" + value)
     }
-    console.log(copierValues)
-    console.log(templateContentsDir)
-    console.log(resultDir)
-    if (copierInstalled) {
-      await executeShellCommand({ 
-        command: 'copier',
-        args: [...copierValues, templateDir, intermediateDir],
-        logStream,
-      });
-    } else {
-      await this.containerRunner.runContainer({
-        imageName: imageName ?? 'tobiasestefors/copier:7.0.1',
-        command: 'copier',
-        args: [...copierValues, '/input', '/output'],
-        mountDirs,
-        workingDir: '/input',
-        envVars: { HOME: '/tmp' },
-        logStream,
-      });
-    }
-
-    // if copier was successful, intermediateDir will contain
-    // exactly one directory.
+    await this.containerRunner.runContainer({
+      imageName: imageName ?? 'tobiasestefors/copier:7.0.1',
+      command: 'copier',
+      args: [...copierValues, '/input', '/output'],
+      mountDirs, 
+      workingDir: '/input',
+      envVars: { HOME: '/tmp' },
+      logStream,
+    });
+    
 
     const [generated] = await fs.readdir(intermediateDir);
     console.log(generated)
@@ -201,10 +193,6 @@ export function createFetchCopierAction(options: {
       if (ctx.input.extensions && !Array.isArray(ctx.input.extensions)) {
         throw new InputError('Fetch action input extensions must be an Array');
       } 
-      ctx.logger.info(integrations);
-      ctx.logger.info(templateContentsDir);
-      ctx.logger.info(ctx.input.url);
-      ctx.logger.info(ctx.templateInfo?.baseUrl);
       await fetchContents({
         reader,
         integrations,
@@ -217,12 +205,7 @@ export function createFetchCopierAction(options: {
       const values = {
         ...ctx.input.values 
       };
-      ctx.logger.info(workDir);
-      ctx.logger.info(values);
-      ctx.logger.info(templateDir);
-      ctx.logger.info(templateContentsDir);
 
-      // Will execute the template in ./template and put the result in ./result
       await copier.run({
         workspacePath: workDir,
         logStream: ctx.logStream,
@@ -232,7 +215,6 @@ export function createFetchCopierAction(options: {
         templateContentsDir: templateContentsDir,
       });
 
-      // Finally move the template result into the task workspace
       const targetPath = ctx.input.targetPath ?? './';
       const outputPath = resolveSafeChildPath(ctx.workspacePath, targetPath);
       await fs.copy(resultDir, outputPath);
