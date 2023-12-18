@@ -30,7 +30,7 @@ import {
   createTemplateAction,
   fetchContents,
   executeShellCommand,
-} from '@backstage/plugin-scaffolder-backend';
+} from '@backstage/plugin-scaffolder-node'
 
 export class CopierRunner {
   private readonly containerRunner: ContainerRunner;
