@@ -128,7 +128,7 @@ export class CopierRunner {
 export function createFetchCopierAction(options: {
   reader: UrlReader;
   integrations: ScmIntegrations;
-  containerRunner: ContainerRunner;
+  containerRunner?: ContainerRunner;
 }) {
   const { reader, containerRunner, integrations } = options;
 
