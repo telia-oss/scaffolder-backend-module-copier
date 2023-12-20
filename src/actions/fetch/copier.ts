@@ -108,8 +108,7 @@ export class CopierRunner {
       copierValues.push("--data")
       copierValues.push(key + "=" + value)
     }
-    console.log("test")
-    console.log("copierValues:", copierValues)
+    console.log(['copier', 'copy', ...copierValues.map(x => `'${x}'`), templateDir, intermediateDir, '--trust'].join(" "))
 
     if (copierInstalled) {
       await executeShellCommand({
