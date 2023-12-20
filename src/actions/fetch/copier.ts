@@ -106,7 +106,7 @@ export class CopierRunner {
     for (let key in allValues) {
       let value = allValues[key];
       copierValues.push("--data")
-      copierValues.push(key + "=" + value)
+      copierValues.push(key + "=\"" + value +"\"")
     }
     console.log("test")
     console.log("copierValues:", copierValues)
