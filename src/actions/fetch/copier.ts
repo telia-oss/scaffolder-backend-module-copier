@@ -112,7 +112,7 @@ export class CopierRunner {
     if (copierInstalled) {
       await executeShellCommand({
         command: 'copier',
-        args: ['copy', templateDir, intermediateDir, '--trust'],
+        args: ['copy', ...copierValues, templateDir, intermediateDir, '--trust'],
         logStream,
       });
     } else {
@@ -122,16 +122,16 @@ export class CopierRunner {
         );
       }
 
-    await this.containerRunner.runContainer({
-      imageName: imageName ?? 'tobiasestefors/copier:7.0.1',
-      command: 'copier',
-      args: [...copierValues, '/input', '/output'],
-      mountDirs, 
-      workingDir: '/input',
-      envVars: { HOME: '/tmp' },
-      logStream,
-    });
-  }
+      await this.containerRunner.runContainer({
+        imageName: imageName ?? 'tobiasestefors/copier:7.0.1',
+        command: 'copier',
+        args: [...copierValues, '/input', '/output'],
+        mountDirs, 
+        workingDir: '/input',
+        envVars: { HOME: '/tmp' },
+        logStream,
+      });
+    }
 
     const [generated] = await fs.readdir(intermediateDir);
     console.log(generated)
