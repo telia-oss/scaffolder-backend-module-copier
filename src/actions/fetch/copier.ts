@@ -132,7 +132,7 @@ export class CopierRunner {
       envVars: { HOME: '/tmp' },
       logStream,
     });
-    
+  }
 
     const [generated] = await fs.readdir(intermediateDir);
     console.log(generated)
