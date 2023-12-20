@@ -95,7 +95,7 @@ export class CopierRunner {
       () => false,
     );
 
-    let copierValues = []
+    let copierValues: string[] = []
     console.log(values) 
     let destValues = values['destination']
     delete values['destination']
