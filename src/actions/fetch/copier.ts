@@ -95,21 +95,6 @@ export class CopierRunner {
       () => false,
     );
 
-
-    if (copierInstalled) {
-      await executeShellCommand({
-        command: 'copier',
-        args: ['--no-input', '-o', intermediateDir, templateDir, '--verbose'],
-        logStream,
-      });
-    } else {
-      if (this.containerRunner === undefined) {
-        throw new Error(
-          'Invalid state: containerRunner cannot be undefined when copier is not installed',
-        );
-      }
-
-
     let copierValues = []
     console.log(values) 
     let destValues = values['destination']
@@ -123,6 +108,20 @@ export class CopierRunner {
       copierValues.push("--data")
       copierValues.push(key + "=" + value)
     }
+
+    if (copierInstalled) {
+      await executeShellCommand({
+        command: 'copier',
+        args: ['copy', templateDir, intermediateDir, '--trust'],
+        logStream,
+      });
+    } else {
+      if (this.containerRunner === undefined) {
+        throw new Error(
+          'Invalid state: containerRunner cannot be undefined when copier is not installed',
+        );
+      }
+
     await this.containerRunner.runContainer({
       imageName: imageName ?? 'tobiasestefors/copier:7.0.1',
       command: 'copier',
