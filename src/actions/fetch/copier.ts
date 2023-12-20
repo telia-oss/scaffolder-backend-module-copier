@@ -99,8 +99,8 @@ export class CopierRunner {
     console.log(values) 
     let destValues = values['destination']
     delete values['destination']
-    console.log(destValues)
-    console.log(values)
+    console.log("destValues:", destValues)
+    console.log("values", values)
     let allValues  = Object.assign({}, destValues, values);
     console.log(allValues)
     for (let key in allValues) {
@@ -108,6 +108,8 @@ export class CopierRunner {
       copierValues.push("--data")
       copierValues.push(key + "=" + value)
     }
+    console.log("test")
+    console.log("copierValues:", copierValues)
 
     if (copierInstalled) {
       await executeShellCommand({
