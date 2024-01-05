@@ -110,7 +110,6 @@ export class CopierRunner {
     }
     const templateSource = templateDir+"/copier"
     const projectDestination = intermediateDir+"/copier"
-    console.log(['copier', 'copy', ...copierValues.map(x => `'${x}'`), templateSource, projectDestination, '--trust'].join(" "))
     if (copierInstalled) {
       await executeShellCommand({
         command: 'copier',
