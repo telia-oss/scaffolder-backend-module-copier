@@ -108,13 +108,13 @@ export class CopierRunner {
       copierValues.push("--data")
       copierValues.push(key + "=" + value)
     }
-    const templateSource = templateDir+"/.."
-    const projectDestination = intermediateDir+"/../template"
-    console.log(['copier', 'copy', ...copierValues.map(x => `'${x}'`), templateDir, projectDestination, '--trust'].join(" "))
+    const templateSource = templateDir+"/copier"
+    const projectDestination = intermediateDir+"/copier"
+    console.log(['copier', 'copy', ...copierValues.map(x => `'${x}'`), templateSource, projectDestination, '--trust'].join(" "))
     if (copierInstalled) {
       await executeShellCommand({
         command: 'copier',
-        args: ['copy', ...copierValues, templateDir, projectDestination, '--trust'],
+        args: ['copy', ...copierValues, templateSource, projectDestination, '--trust'],
         logStream,
       });
     } else {
