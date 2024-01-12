@@ -210,17 +210,6 @@ export function createFetchCopierAction(options: {
       );
       const resultDir = resolvePath(workDir, 'result');
 
-      if (
-        ctx.input.copyWithoutRender &&
-        !Array.isArray(ctx.input.copyWithoutRender)
-      ) {
-        throw new InputError(
-          'Fetch action input copyWithoutRender must be an Array',
-        );
-      }
-      if (ctx.input.extensions && !Array.isArray(ctx.input.extensions)) {
-        throw new InputError('Fetch action input extensions must be an Array');
-      } 
       await fetchContents({
         reader,
         integrations,
