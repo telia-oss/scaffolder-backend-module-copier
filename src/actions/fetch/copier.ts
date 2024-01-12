@@ -20,7 +20,6 @@ import {
   resolveSafeChildPath,
 } from '@backstage/backend-common';
 import { JsonObject, JsonValue } from '@backstage/types';
-import { InputError } from '@backstage/errors';
 import { ScmIntegrations } from '@backstage/integration';
 import commandExists from 'command-exists';
 import fs from 'fs-extra';
