@@ -75,7 +75,6 @@ describe('fetch:copier', () => {
 
   const mockReader: UrlReader = {
     readUrl: jest.fn(),
-    read: jest.fn(),
     readTree: jest.fn(),
     search: jest.fn(),
   };
