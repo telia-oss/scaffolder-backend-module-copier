@@ -44,7 +44,7 @@ export class CopierRunner {
     try {
       return await fs.readJSON(path.join(directory, 'copier.json'));
     } catch (ex) {
-      if (ex.code !== 'ENOENT') {
+      if (typeof ex === "object" && ex && "code" in ex && ex.code !== 'ENOENT') {
         throw ex;
       }
 
