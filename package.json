@@ -33,13 +33,13 @@
     "fs-extra": "11.2.0",
     "typescript": "~5.3.2",
     "winston": "3.11.0",
-    "yn": "5.0.0"
+    "yn": "5.0.0",
+    "@types/command-exists": "1.2.3",
+    "@types/mock-fs": "4.13.4",
+    "@types/fs-extra": "11.0.4"
   },
   "devDependencies": {
     "@backstage/cli": "^0.25.0",
-    "@types/command-exists": "1.2.3",
-    "@types/mock-fs": "4.13.4",
-    "@types/fs-extra": "11.0.4",
     "mock-fs": "5.2.0",
     "msw": "2.1.2"
   },
