@@ -20,7 +20,6 @@
         "lib": ["DOM", "DOM.Iterable", "ScriptHost", "ES2021"],
         "module": "ESNext",
         "moduleResolution": "node",
-        "noEmit": false,
         "noFallthroughCasesInSwitch": true,
         "noImplicitAny": true,
         "noImplicitReturns": true,
