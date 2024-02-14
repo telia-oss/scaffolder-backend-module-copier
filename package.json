@@ -1,5 +1,5 @@
 {
-  "name": "@backstage/plugin-scaffolder-backend-module-copier",
+  "name": "@diamondlightsource/plugin-scaffolder-backend-module-copier",
   "description": "A module for the scaffolder backend that lets you template projects using copier",
   "version": "0.2.13",
   "main": "src/index.ts",
