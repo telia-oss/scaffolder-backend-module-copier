@@ -1,0 +1,6 @@
+{
+    "image": "docker.io/library/node:20-bookworm",
+    "runArgs": ["--security-opt=label=type:container_runtime_t"],
+    "workspaceMount": "source=${localWorkspaceFolder},target=${localWorkspaceFolder},type=bind",
+    "workspaceFolder": "${localWorkspaceFolder}"
+}
